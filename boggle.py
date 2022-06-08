@@ -1,16 +1,13 @@
 """Utilities related to Boggle game."""
-
-from flask import Flask
-
 from random import choice
 import string
-
 
 class Boggle():
 
     def __init__(self):
 
         self.words = self.read_dict("words.txt")
+        self.words_played = []
 
     def read_dict(self, dict_path):
         """Read and return all words in dictionary."""
@@ -33,12 +30,17 @@ class Boggle():
 
     def check_valid_word(self, board, word):
         """Check if a word is a valid word in the dictionary and/or the boggle board"""
-
         word_exists = word in self.words
         valid_word = self.find(board, word.upper())
+        words_played = self.words_played
+
+        if word in words_played and valid_word:
+            result = "already-played"
+            return result
 
         if word_exists and valid_word:
             result = "ok"
+            words_played.append(word)
         elif word_exists and not valid_word:
             result = "not-on-board"
         else:

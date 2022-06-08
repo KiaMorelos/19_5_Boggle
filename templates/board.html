@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Boggle{% endblock %}
+
+{% block content %}
+<section id="game-container">
+    <p>Top Score: {{ bestscore }} | Times Played: {{ times_played }}</p>
+
+    <h2 class="current-score">Current Score: 0</h2>
+
+    <p id="timer">Time Remaining: <span id="seconds">60</span> Seconds</p>
+    <p id="guess-result"></p>
+    <form id="guess-form">
+        <div id="interact">
+            Player Guess 
+            <input name="guess" id="guess" type="text" minlength="3" placeholder="Type guess" required>
+        </div>
+        <button>Enter Guess</button>
+    </form>
+
+    <table id="board">
+        {% for board_row in board %}
+        <tr> 
+            {% for board_cell in board_row %}
+                <td>
+                    <p>{{ board_cell }}</p>
+                </td>
+            {% endfor %}
+        </tr>   
+        {% endfor %}
+    </table>
+</section>
+{% endblock %}
